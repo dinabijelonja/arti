@@ -1,1 +1,11 @@
-<p>file-upload works!</p>
+<h2>Knowledge Base Upload</h2>
+<input type="file" accept=".txt" multiple (change)="onFileSelected($event)" style="margin-bottom: 16px;" />
+<h3>Uploaded Files</h3>
+<p-listbox [options]="uploadedFiles" [listStyle]="{'max-height':'200px'}">
+  <ng-template let-file let-i="index" pTemplate="item">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      {{ file }}
+      <button pButton type="button" icon="pi pi-trash" class="p-button-danger p-button-text" (click)="deleteFile(i)"></button>
+  </div>
+  </ng-template>
+</p-listbox>

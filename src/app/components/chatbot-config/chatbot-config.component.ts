@@ -31,7 +31,7 @@ export class ChatbotConfigComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const savedConfig = this.storageService.getChatConfig();
+    const savedConfig = this.storageService.getChatbotConfig();
     if (savedConfig) {
       this.configForm.patchValue(savedConfig);
     }

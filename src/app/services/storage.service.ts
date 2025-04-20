@@ -9,7 +9,7 @@ export class StorageService {
     localStorage.setItem('chatbotConfig', JSON.stringify(config));
   }
 
-  getChatConfig(): ChatbotConfig | null {
+  getChatbotConfig(): ChatbotConfig | null {
     const config = localStorage.getItem('chatbotConfig');
     return config ? JSON.parse(config) : null;
   }
