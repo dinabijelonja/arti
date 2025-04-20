@@ -1,0 +1,16 @@
+<h2>Chatbot Configuration</h2>
+<form [formGroup]="configForm" (ngSubmit)="onSubmit()">
+  <div class="p-field">
+    <label for="name">Name</label>
+    <input pInputText id="name" formControlName="name" required style="width: 100%;" />
+  </div>
+  <div class="p-field">
+    <label for="personality">Personality (0.0 to 1.0)</label>
+    <p-slider id="personality" formControlName="personality" [min]="0" [max]="1" [step]="0.1" />
+  </div>
+  <div class="p-field">
+    <label for="description">Description</label>
+    <textarea pInputTextarea id="description" formControlName="description" required style="width: 100%;"></textarea>
+  </div>
+  <button pButton type="submit" label="Save Configuration" [disabled]="!configForm.valid" class="p-button-primary"></button>
+</form>
