@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ListboxModule } from 'primeng/listbox';
 import { ButtonModule } from 'primeng/button';
+
 import { StorageService } from '../../services/storage.service';
 
 @Component({
@@ -30,7 +31,7 @@ export class FileUploadComponent implements OnInit {
         .map(file => file.name);
       this.uploadedFiles = [...this.uploadedFiles, ...newFiles];
       this.storageService.saveFiles(this.uploadedFiles);
-      input.value = ''; // Reset input
+      input.value = ''; 
     }
   }
 
