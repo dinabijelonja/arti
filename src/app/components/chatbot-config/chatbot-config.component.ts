@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { InputTextModule } from 'primeng/inputtext';
 import { SliderModule } from 'primeng/slider';
 import { ButtonModule } from 'primeng/button';
+
 import { StorageService } from '../../services/storage.service';
 import { ChatbotConfig } from '../../models/chatbot-config';
 
@@ -35,12 +36,14 @@ export class ChatbotConfigComponent implements OnInit {
     if (savedConfig) {
       this.configForm.patchValue(savedConfig);
     }
+    console.log('Personality value:', this.configForm.get('personality')?.value);
   }
 
   onSubmit(): void {
     if (this.configForm.valid) {
       const config: ChatbotConfig = this.configForm.value;
       this.storageService.saveChatbotConfig(config);
+      console.log('Saved personality:', config.personality); 
       alert('Chatbot configuration saved!');
     }
   }

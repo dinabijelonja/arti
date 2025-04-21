@@ -10,11 +10,16 @@ form {
   flex-direction: column;
 }
 
-button {
-  align-self: flex-start;
+.p-field label {
+  margin-bottom: 8px;
 }
 
-#personality {
-  width: 100px;
-  height: 100px;
+.p-slider {
+  display: block !important;
+  width: 100% !important;
+  min-height: 20px; 
+}
+
+button {
+  align-self: flex-start;
 }

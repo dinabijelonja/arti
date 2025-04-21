@@ -24,11 +24,13 @@
   
   .bot-message .message-bubble {
     background-color: #e6f3ff;
+    color: #666;
     margin-left: auto;
   }
   
   .user-message .message-bubble {
     background-color: #f5f5f5;
+    color: #666;
     margin-right: auto;
   }
   

@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+
 import { StorageService } from '../../services/storage.service';
 import { Message } from '../../models/message';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-chat-simulation',
@@ -22,12 +24,21 @@ import { CommonModule } from '@angular/common';
   templateUrl: './chat-simulation.component.html',
   styleUrls: ['./chat-simulation.component.css']
 })
-export class ChatSimulationComponent {
+export class ChatSimulationComponent implements OnInit, OnDestroy {
   messages: Message[] = [];
   userMessage: string = '';
   botPersonality: number = 0.5;
+  private configSubscription: Subscription;
 
   constructor(private storageService: StorageService) {
+    this.configSubscription = this.storageService.getConfigObservable().subscribe(config => {
+      if (config) {
+        this.botPersonality = config.personality;
+      }
+    });
+  }
+
+  ngOnInit(): void {
     const config = this.storageService.getChatbotConfig();
     if (config) {
       this.botPersonality = config.personality;
@@ -36,7 +47,6 @@ export class ChatSimulationComponent {
 
   sendMessage(): void {
     if (this.userMessage.trim()) {
-      // Add user message
       const userMessage: Message = {
         text: this.userMessage,
         isBot: false,
@@ -44,7 +54,6 @@ export class ChatSimulationComponent {
       };
       this.messages.push(userMessage);
 
-      // Simulate bot response
       setTimeout(() => {
         const response = this.generateBotResponse();
         const botMessage: Message = {
@@ -68,5 +77,9 @@ export class ChatSimulationComponent {
     ];
     const tone = this.botPersonality > 0.5 ? 'Friendly' : 'Formal';
     return `${tone}: ${responses[Math.floor(Math.random() * responses.length)]}`;
+  }
+
+  ngOnDestroy(): void {
+    this.configSubscription.unsubscribe(); 
   }
 }
